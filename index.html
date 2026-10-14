@@ -30,6 +30,7 @@
       justify-content: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
       cursor: pointer;
+      z-index: 20;
     }
   </style>
 </head>
@@ -237,11 +238,11 @@
             </div>
           </div>
 
-          <!-- SECTION 4: DAMAGE CANVAS -->
+          <!-- SECTION 4: DAMAGE CANVAS WITH SVG DIAGRAM -->
           <div class="mb-6">
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-xs font-bold uppercase tracking-wider text-red-600 flex items-center gap-1.5">
-                <i class="fa-solid fa-car-burst"></i> 4. Plano de Daños
+                <i class="fa-solid fa-car-burst"></i> 4. Plano de Daños (Toca el esquema para marcar)
               </h3>
               <div class="flex gap-2">
                 <label class="cursor-pointer text-xs font-bold px-2.5 py-1 rounded-lg bg-orange-100 text-orange-700 border border-orange-300">
@@ -256,8 +257,27 @@
               </div>
             </div>
 
-            <div id="vanCanvas" onclick="addDamageFromClick(event)" class="van-canvas-container bg-white border-2 border-dashed border-slate-300 rounded-2xl p-4 flex items-center justify-center cursor-crosshair min-h-[220px]">
-              <img src="furgoneta.png" alt="Esquema Furgoneta" class="max-h-52 object-contain pointer-events-none">
+            <div id="vanCanvas" onclick="addDamageFromClick(event)" class="van-canvas-container bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl p-4 flex items-center justify-center cursor-crosshair min-h-[220px] relative">
+              <svg viewBox="0 0 600 240" class="w-full max-h-56 object-contain pointer-events-none">
+                <!-- Vehicle Body -->
+                <path d="M 60,170 L 60,100 Q 60,70 90,65 L 170,60 L 230,25 Q 250,15 280,15 L 420,15 Q 460,15 480,45 L 520,70 Q 550,75 550,110 L 550,170 Z" fill="#ffffff" stroke="#1e293b" stroke-width="4"/>
+                <!-- Windows -->
+                <path d="M 235,30 L 275,30 L 275,60 L 180,60 Z" fill="#38bdf8" opacity="0.6" stroke="#1e293b" stroke-width="2"/>
+                <path d="M 285,30 L 410,30 L 440,60 L 285,60 Z" fill="#38bdf8" opacity="0.6" stroke="#1e293b" stroke-width="2"/>
+                <!-- Wheels -->
+                <circle cx="150" cy="170" r="32" fill="#0f172a"/>
+                <circle cx="150" cy="170" r="14" fill="#cbd5e1"/>
+                <circle cx="450" cy="170" r="32" fill="#0f172a"/>
+                <circle cx="450" cy="170" r="14" fill="#cbd5e1"/>
+                <!-- Door & Panel lines -->
+                <line x1="280" y1="20" x2="280" y2="170" stroke="#64748b" stroke-width="2.5" stroke-dasharray="4"/>
+                <line x1="450" y1="65" x2="450" y2="130" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="60" y1="120" x2="550" y2="120" stroke="#cbd5e1" stroke-width="1.5"/>
+                <!-- Lights -->
+                <rect x="52" y="105" width="10" height="28" rx="3" fill="#ef4444"/>
+                <rect x="548" y="105" width="10" height="28" rx="3" fill="#f59e0b"/>
+                <text x="300" y="105" text-anchor="middle" fill="#64748b" font-weight="bold" font-size="14">ESQUEMA DE FURGONETA (PULSA PARA MARCAR DAÑO)</text>
+              </svg>
             </div>
             <div id="damageList" class="mt-3 text-xs space-y-1"></div>
           </div>

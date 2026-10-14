@@ -224,7 +224,7 @@ async function saveInspection(isNewCopy = false) {
     console.warn('Supabase sync notice:', err);
   }
 
-  alert(`✅ Inspección para ${inspection.plate} guardada correctamente.`);
+  alert(`✅ Inspección para ${inspection.plate} guardada y actualizada correctamente.`);
   resetForm();
   loadHistory();
 }
@@ -239,6 +239,10 @@ function resetForm() {
   document.getElementById('levelOil').value = 'MAX';
   document.getElementById('levelAdBlue').value = 'MAX';
   document.getElementById('levelCoolant').value = 'MAX';
+  document.getElementById('levelBrakeFluid').value = 'MAX';
+  document.getElementById('levelWasher').value = 'MAX';
+  document.getElementById('levelFrontPads').value = '100%';
+  document.getElementById('levelFrontTires').value = '100%';
   document.getElementById('eqSpareWheel').checked = true;
   document.getElementById('eqJack').checked = true;
   document.getElementById('eqPapers').checked = true;
@@ -305,7 +309,7 @@ function filterHistory() {
   }
 
   if (list.length === 0) {
-    listDiv.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">No se encontraron inspecciones.</p>';
+    listDiv.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">No se encontraron inspecciones para tu usuario.</p>';
     return;
   }
 
@@ -348,6 +352,14 @@ function editInspection(id) {
   if (item.oil) document.getElementById('levelOil').value = item.oil;
   if (item.adblue) document.getElementById('levelAdBlue').value = item.adblue;
   if (item.coolant) document.getElementById('levelCoolant').value = item.coolant;
+  if (item.brake_fluid) document.getElementById('levelBrakeFluid').value = item.brake_fluid;
+  if (item.washer_fluid) document.getElementById('levelWasher').value = item.washer_fluid;
+  if (item.front_pads) document.getElementById('levelFrontPads').value = item.front_pads;
+  if (item.front_tires) document.getElementById('levelFrontTires').value = item.front_tires;
+
+  if (item.spare_wheel !== undefined) document.getElementById('eqSpareWheel').checked = item.spare_wheel;
+  if (item.jack_tools !== undefined) document.getElementById('eqJack').checked = item.jack_tools;
+  if (item.papers !== undefined) document.getElementById('eqPapers').checked = item.papers;
 
   activeDamages = Array.isArray(item.damages) ? item.damages : [];
   renderDamagePoints();
